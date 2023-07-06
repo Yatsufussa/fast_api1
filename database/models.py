@@ -69,3 +69,5 @@ class Service(Base):
     service_check = Column(Integer, nullable=False)
 
     reg_date = Column(DateTime)
+
+    category_fk = relationship(ServiceCategory)

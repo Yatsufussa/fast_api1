@@ -30,8 +30,9 @@ async def delete_user_card(card_id: int, user_id: int):
 async def get_exact_or_all_cards(user_id: int, card: int = 0):
     pass
 
+
 # Get history of the card
-@app.get('/get-user-cards')
-async def get_exact_all_card_monitoring(card: int = 0):
+@app.get('/get-card-monitoring')
+async def get_exact_all_card_monitoring(user_id: int, card: int = 0):
     pass
 

@@ -12,6 +12,18 @@ SessionLocal = sessionmaker(bind=engine)
 # General Class for data models
 Base = declarative_base()
 
+
+# Connection Generations to Database
+def get_db():
+    session = SessionLocal()
+    try:
+        yield session
+    except:
+        session.rollback()
+        raise
+    finally:
+        session.close()
+
 # Functionality Import
 from database.userservice import *
 from database.cardservice import *
