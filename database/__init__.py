@@ -2,18 +2,20 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-# Connecting to database
-SQLALCHEMY_DATABASE_URI = "sqlite://pay_test.db"
-# connect_args={"check_same_thread": False - only for sqlite3
+# Подключение к базе данных
+SQLALCHEMY_DATABASE_URI = 'sqlite:///pay_test.db'
+
+# connect_args={"check_same_thread": False} - ТОЛЬКО ДЛЯ sqlite3
 engine = create_engine(SQLALCHEMY_DATABASE_URI, connect_args={"check_same_thread": False})
-# Session for database
+
+# Сессии для базы данных
 SessionLocal = sessionmaker(bind=engine)
 
-# General Class for data models
+# Общий класс для создания моделей данных
 Base = declarative_base()
 
 
-# Connection Generations to Database
+# Генерация подключений к БД
 def get_db():
     session = SessionLocal()
     try:
@@ -24,8 +26,9 @@ def get_db():
     finally:
         session.close()
 
-# Functionality Import
+
+# Импорт функционала для БД
 from database.userservice import *
 from database.cardservice import *
-from database.businesservice import *
 from database.paymentservice import *
+from database.businesservice import *

@@ -3,27 +3,26 @@ from sqlalchemy import Column, String, Integer, Float, Boolean, Date, DateTime, 
 from sqlalchemy.orm import relationship
 
 
-# User Table
+# Таблица пользователей
 class User(Base):
     __tablename__ = 'users'
     user_id = Column(Integer, autoincrement=True, primary_key=True)
     phone_number = Column(Integer, nullable=False)
     name = Column(String, nullable=False)
-
     reg_date = Column(DateTime)
 
 
-# Passwords Table
+# Таблица паролей
 class Password(Base):
-    __tablename__ = 'user_passwords'
+    __tablename__ = 'passwords'
     user_id = Column(Integer, ForeignKey('users.user_id'), primary_key=True)
     password = Column(String, nullable=False)
-    pincode = Column(Integer)
+    pincode = Column(String)
 
     user_fk = relationship(User)
 
 
-# Cards Table
+# Таблица карт
 class Card(Base):
     __tablename__ = 'user_cards'
     card_id = Column(Integer, autoincrement=True, primary_key=True)
@@ -33,41 +32,39 @@ class Card(Base):
     cardholder = Column(String)
     exp_date = Column(Integer, nullable=False)
     balance = Column(Float)
-
     added_date = Column(DateTime)
-
     user_fk = relationship(User)
 
 
-# Payment Table
+# Таблица платежей
 class Transaction(Base):
-    __tablename__ = 'user_transaction'
+    __tablename__ = 'user_transactions'
     transaction_id = Column(Integer, autoincrement=True, primary_key=True)
     card_id = Column(Integer, ForeignKey('user_cards.card_id'), nullable=False)
     amount = Column(Float, nullable=False)
     card_to = Column(Integer, nullable=False)
 
-    transaction_date = Column(DateTime)
-
+    tansaction_date = Column(DateTime)
     card_fk = relationship(Card)
 
 
-# Service Category Table
+# Таблица категорий сервисов
 class ServiceCategory(Base):
     __tablename__ = 'service_categories'
     category_id = Column(Integer, autoincrement=True, primary_key=True)
     category_name = Column(String, nullable=False)
 
-    added_date = Column(DateTime)
+    add_date = Column(DateTime)
 
 
+# Таблица сервисов\
 class Service(Base):
     __tablename__ = 'services'
     service_id = Column(Integer, autoincrement=True, primary_key=True)
     service_category = Column(Integer, ForeignKey('service_categories.category_id'), nullable=False)
     service_name = Column(String, nullable=False)
+    service_balance = Column(Float)
     service_check = Column(Integer, nullable=False)
 
     reg_date = Column(DateTime)
-
     category_fk = relationship(ServiceCategory)
